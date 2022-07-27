@@ -18,7 +18,6 @@ public class MarqueDAO extends DAO<Marque, Marque>
 		ArrayList<Marque> liste = new ArrayList<>();
 		try (Statement stmt = connexion.createStatement()){
 
-
 			// Determine the column set column
 
 			String strCmd = "SELECT id_marque,nom_marque from marque as P order by id_marque";
@@ -37,12 +36,10 @@ public class MarqueDAO extends DAO<Marque, Marque>
 		return liste;
 
 	}
-
 	@Override
 	public ArrayList<Marque> getLike(Marque objet) {
 		return null;
 	}
-
 
 	@Override
 	public Marque getByID(int id)

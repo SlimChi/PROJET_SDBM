@@ -18,7 +18,7 @@ public class ArticleDAO extends DAO<Article, ArticleSearch> {
     public ArrayList<Article> getLike(ArticleSearch articleSearch) {
         ResultSet rs;
         ArrayList<Article> liste = new ArrayList<>();
-        String procedureStockee = "{call dbo.SP_vue_article(?,?,?)}";
+        String procedureStockee = "{call SP_Vue_Article(?,?,?)}";
         try (CallableStatement cStmt = this.connexion.prepareCall(procedureStockee)) {
             cStmt.setString(1, articleSearch.getLibelle());
             cStmt.setInt(2, articleSearch.getVolume());

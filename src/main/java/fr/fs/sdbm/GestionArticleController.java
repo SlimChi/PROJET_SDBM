@@ -70,9 +70,11 @@ public class GestionArticleController {
         marqueSearch.setItems(FXCollections.observableArrayList(serviceArticle.getMarqueFiltre()));
         marqueSearch.valueProperty().addListener(observable -> filterArticle());
 
-       // couleurSearch.setItems(FXCollections.observableArrayList(serviceArticle.getCouleurFiltre()));
-        //couleurSearch.valueProperty().addListener(observable -> filterArticle());
+        couleurSearch.setItems(FXCollections.observableArrayList(serviceArticle.getCouleurFiltre()));
+        couleurSearch.valueProperty().addListener(observable -> filterArticle());
 
+        typeSearch.setItems(FXCollections.observableArrayList(serviceArticle.getTypeBiereFiltre()));
+        typeSearch.valueProperty().addListener(observable -> filterArticle());
 
     }
 
@@ -109,6 +111,10 @@ public class GestionArticleController {
             articleSearch.setFabricant(fabricantSearch.getSelectionModel().getSelectedItem());
         if (marqueSearch.getSelectionModel().getSelectedItem() != null)
             articleSearch.setMarque(marqueSearch.getSelectionModel().getSelectedItem());
+        if (couleurSearch.getSelectionModel().getSelectedItem() != null)
+            articleSearch.setCouleur(couleurSearch.getSelectionModel().getSelectedItem());
+        if (typeSearch.getSelectionModel().getSelectedItem() != null)
+            articleSearch.setTypeBiere(typeSearch.getSelectionModel().getSelectedItem());
         articleTable.setItems(FXCollections.observableArrayList(serviceArticle.getFilteredArticles(articleSearch)));
     }
 }

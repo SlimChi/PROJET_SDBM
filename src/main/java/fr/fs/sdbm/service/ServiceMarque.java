@@ -19,7 +19,7 @@ public class ServiceMarque
 		continentFiltre = DaoFactory.getContinentDAO().getAll();
 		fabricantFiltre = DaoFactory.getFabricantDAO().getAll();
 		Fabricant fabricant = new Fabricant();
-		fabricant.setLibelle("Choisir un fabricant");
+		fabricant.setLibelle("Choisir une marque");
 		fabricantFiltre.add(0, fabricant);
 	}
 

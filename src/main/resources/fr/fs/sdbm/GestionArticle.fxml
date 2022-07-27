@@ -27,8 +27,8 @@
 				<Slider layoutX="76.0" layoutY="191.0" />
 				<Label layoutX="12.0" layoutY="159.0" text="Titrage max" />
 				<Label layoutX="13.0" layoutY="189.0" text="Titrage min" />
-				<ComboBox fx:id="CouleurSearch" layoutX="14.0" layoutY="111.0" prefHeight="26.0" prefWidth="92.0" promptText="Couleur" />
-				<ComboBox fx:id="TypeSearch" layoutX="142.0" layoutY="112.0" prefHeight="26.0" prefWidth="98.0" promptText="Type" />
+				<ComboBox fx:id="couleurSearch" layoutX="14.0" layoutY="111.0" prefHeight="26.0" prefWidth="92.0" promptText="Couleur" />
+				<ComboBox fx:id="typeSearch" layoutX="142.0" layoutY="112.0" prefHeight="26.0" prefWidth="98.0" promptText="Type" />
 				<ComboBox layoutX="305.0" layoutY="31.0" prefWidth="150.0" promptText="Tout Contenance" />
             <ComboBox fx:id="marqueSearch" layoutX="291.0" layoutY="111.0" prefHeight="26.0" prefWidth="98.0" promptText="marque" />
 			</children>

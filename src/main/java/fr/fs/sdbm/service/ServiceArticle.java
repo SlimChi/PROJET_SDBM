@@ -21,12 +21,22 @@ public class ServiceArticle {
         couleurFiltre =  DaoFactory.getCouleurDAO().getAll();
         typeBiereFiltre =  DaoFactory.getTypeBiereDAO().getAll();
         marqueFiltre =  DaoFactory.getMarqueDAO().getAll();
+
         Fabricant fabricant = new Fabricant();
         fabricant.setLibelle("Choisir un fabricant");
         fabricantFiltre.add(0, fabricant);
+
         Marque marque = new Marque();
-        marque.setLibelle("Choisir un fabricant");
+        marque.setLibelle("Choisir une marque");
         marqueFiltre.add(0, marque);
+
+        Couleur couleur = new Couleur();
+        couleur.setLibelle("Choisir une couleur");
+        couleurFiltre.add(0, couleur);
+
+        TypeBiere typeBiere = new TypeBiere();
+        typeBiere.setLibelle("Choisir une biére");
+        typeBiereFiltre.add(0, typeBiere);
     }
 
 
