@@ -21,9 +21,7 @@ public class PaysDAO extends DAO<Pays, Pays> {
 		ArrayList<Pays> liste = new ArrayList<>();
 		try (Statement stmt = connexion.createStatement()){
 
-
 			// Determine the column set column
-
 			String strCmd = "SELECT id_pays,nom_pays,id_continent,(select nom_continent from continent where id_continent = P.id_continent) from pays as P order by nom_pays";
 			rs = stmt.executeQuery(strCmd);
 

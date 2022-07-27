@@ -40,9 +40,9 @@ public class ServiceMarque
 		return fabricantFiltre;
 	}
 
-	public ArrayList<Marque> getFilteredArticles(MarqueSearch marqueSearch)
+	/*public ArrayList<Marque> getFilteredArticles(MarqueSearch marqueSearch)
 	{
 		return DaoFactory.getMarqueDAO().getLike(marqueSearch);
-	}
+	}*/
 
 }

@@ -18,7 +18,7 @@ public class Article
 	private Marque marque;
 	private Couleur couleur;
 	private TypeBiere typeBiere;
-	
+
 	public Article()
 	{
 		couleur = new Couleur();

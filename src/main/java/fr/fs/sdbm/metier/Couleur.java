@@ -32,4 +32,12 @@ public class Couleur
 	return libelle;
     }
 
+    public void setId(int id) {
+            this.id = id;
+    }
+
+    public void setLibelle(String libelle)
+    {
+        this.libelle = libelle;
+    }
 }

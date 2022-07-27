@@ -25,10 +25,10 @@ public class MenuApp extends Application {
     public void start(Stage primaryStage) {
         this.primaryStage = primaryStage;
         this.primaryStage.setTitle("Gestion des Marques");
-        showMarque();
+        showArticle();
     }
 
-    private void showMarque() {
+    private void showArticle() {
         try {
             // Chargement du fichier fxml
             FXMLLoader loader = new FXMLLoader();
@@ -38,7 +38,7 @@ public class MenuApp extends Application {
             Scene scene = new Scene(menuLayout);
             primaryStage.setScene(scene);
 
-            GestionMarqueController controller = loader.getController();
+            GestionArticleController controller = loader.getController();
             controller.setMenuApp(this);
 
             primaryStage.show();

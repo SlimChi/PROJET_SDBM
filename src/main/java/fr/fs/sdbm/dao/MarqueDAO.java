@@ -3,66 +3,46 @@ package fr.fs.sdbm.dao;
 import fr.fs.sdbm.metier.*;
 import fr.fs.sdbm.service.MarqueSearch;
 
-import java.sql.CallableStatement;
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.Types;
+import java.sql.*;
 import java.util.ArrayList;
 
 
-public class MarqueDAO extends DAO<Marque, MarqueSearch>
+public class MarqueDAO extends DAO<Marque, Marque>
 {
 	public MarqueDAO(Connection connexion)
 	{
 		super(connexion);
 	}
 
-	public ArrayList<Marque> getLike(MarqueSearch marqueSearch)
-	{
-		ResultSet rs;
+	public ArrayList<Marque> getAll()	{
 		ArrayList<Marque> liste = new ArrayList<>();
-		String procedureStockee = "{call dbo.SP_MARQUE_QBE (?,?,?,?,?,?)}";
-		try (CallableStatement cStmt = this.connexion.prepareCall(procedureStockee))
-		{
-			cStmt.setString(1, marqueSearch.getLibelle());
-			cStmt.setInt(2, marqueSearch.getFabricant().getId());
-			cStmt.setString(3, marqueSearch.getPays().getId());
-			cStmt.setInt(4, marqueSearch.getContinent().getId());
-			cStmt.setNull(5, Types.INTEGER);
-			cStmt.setNull(6, Types.INTEGER);
+		try (Statement stmt = connexion.createStatement()){
 
-			cStmt.execute();
-			rs = cStmt.getResultSet();
 
-			while (rs.next())
-			{
-				// création d'un nouvel article à partir d'une ligne du resultset
-				Marque newMarque = new Marque();
-				newMarque.setId(rs.getInt(1));
-				newMarque.setLibelle(rs.getString(2));
-				newMarque.setPays(new Pays(rs.getString(3), rs.getString(4), new Continent(rs.getInt(5), rs.getString(6))));
-				newMarque.setFabricant(new Fabricant());
-				newMarque.getFabricant().setId(rs.getInt(7));
-				newMarque.getFabricant().setLibelle(rs.getString(8));
-				liste.add(newMarque);
+			// Determine the column set column
+
+			String strCmd = "SELECT id_marque,nom_marque from marque as P order by id_marque";
+			ResultSet rs = stmt.executeQuery(strCmd);
+
+			while (rs.next()) {
+				liste.add(new Marque(rs.getInt(1), rs.getString(2)));
 			}
 			rs.close();
-		}
 
+		}
 		// Handle any errors that may have occurred.
-		catch (Exception e)
-		{
+		catch (Exception e) {
 			e.printStackTrace();
 		}
 		return liste;
+
 	}
 
 	@Override
-	public ArrayList<Marque> getAll()
-	{
-		// TODO Auto-generated method stub
+	public ArrayList<Marque> getLike(Marque objet) {
 		return null;
 	}
+
 
 	@Override
 	public Marque getByID(int id)

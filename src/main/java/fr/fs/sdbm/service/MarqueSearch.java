@@ -11,8 +11,13 @@ public class MarqueSearch
 	private Continent continent;
 	private Fabricant fabricant;
 
+	private Couleur couleur;
+
+
+
 	public MarqueSearch()
 	{
+		couleur = new Couleur();
 		pays = new Pays();
 		continent = new Continent();
 		fabricant = new Fabricant();
@@ -58,4 +63,10 @@ public class MarqueSearch
 		this.fabricant = fabricant;
 	}
 
+	public Couleur getCouleur() {
+		return couleur;
+	}
+	public void setCouleur(Couleur couleur) {
+		this.couleur = couleur;
+	}
 }

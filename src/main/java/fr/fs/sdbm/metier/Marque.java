@@ -8,34 +8,38 @@ import javafx.beans.property.StringProperty;
 public class Marque
 {
 
-    private IntegerProperty id;
-    private StringProperty libelle;
+    private Integer id;
+    private String libelle;
     private Pays pays;
     private Fabricant fabricant;
 
     public Marque(){
-        id = new SimpleIntegerProperty();
-        libelle = new SimpleStringProperty();
+
+    }
+
+    public Marque(Integer id, String libelle) {
+        this.id = id;
+        this.libelle = libelle;
     }
 
     public Integer getId()
     {
-	return id.get();
+	return id;
     }
 
     public void setId(Integer id)
     {
-	this.id.setValue(id);
+	this.id=id;
     }
 
     public String getLibelle()
     {
-	return libelle.get();
+	return libelle;
     }
 
     public void setLibelle(String libelle)
     {
-	this.libelle.set(libelle);
+	this.libelle=libelle;
     }
 
     public Pays getPays()
@@ -61,14 +65,8 @@ public class Marque
     @Override
     public String toString()
     {
-	return libelle.getValue();
+	return libelle;
     }
 
-    public IntegerProperty idProperty() {
-        return id;
-    }
 
-    public StringProperty libelleProperty() {
-        return libelle;
-    }
 }
