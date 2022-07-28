@@ -51,7 +51,7 @@
 				</TableView>
 			</children>
 		</AnchorPane>
-		<AnchorPane fx:id="detailShow" layoutX="500.0" layoutY="30.0" prefHeight="553.0" prefWidth="508.0">
+		<AnchorPane fx:id="detailShow" layoutX="500.0" layoutY="30.0" prefHeight="580.0" prefWidth="508.0">
 			<children>
 				<Label layoutX="214.0" layoutY="14.0" text="Détails">
 					<font>
@@ -101,11 +101,11 @@
                   <Label fx:id="type" GridPane.columnIndex="1" GridPane.rowIndex="10" />
                </children>
             </GridPane>
+            <Button layoutX="176.0" layoutY="541.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="72.0" text="Modifier" />
+            <Button fx:id="supprimer" layoutX="329.0" layoutY="541.0" mnemonicParsing="false" onAction="#supprimerArticle" text="Supprimer" />
 			</children>
 		</AnchorPane>
-      <Button layoutX="617.0" layoutY="575.0" mnemonicParsing="false" text="Ajouter" />
-      <Button layoutX="912.0" layoutY="574.0" mnemonicParsing="false" text="Supprimer" />
-      <Button layoutX="764.0" layoutY="575.0" mnemonicParsing="false" text="Modifier" />
-      <Button layoutX="213.0" layoutY="574.0" mnemonicParsing="false" text="Imprimer" />
+      <Button fx:id="ajouter" layoutX="332.0" layoutY="571.0" mnemonicParsing="false" onAction="#ajouter" prefHeight="25.0" prefWidth="72.0" text="Ajouter" />
+      <Button fx:id="imprimer" layoutX="80.0" layoutY="571.0" mnemonicParsing="false" onAction="#imprimer" prefHeight="25.0" prefWidth="72.0" text="Imprimer" />
 	</children>
 </AnchorPane>

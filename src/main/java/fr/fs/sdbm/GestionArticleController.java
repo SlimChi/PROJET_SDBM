@@ -6,9 +6,12 @@ import fr.fs.sdbm.service.ServiceArticle;
 import fr.fs.sdbm.service.ServiceMarque;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
+import javafx.print.PrinterJob;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import org.controlsfx.control.RangeSlider;
+
+import java.util.Optional;
 
 
 public class GestionArticleController {
@@ -81,7 +84,12 @@ public class GestionArticleController {
     private Label type;
 
     private Article articleSelected;
+    private Article article;
 
+    @FXML
+    private Button ajouter;
+    private Button imprimer;
+    private Button supprimer;
 
     // Initialisation de la vue
     @FXML
@@ -94,7 +102,7 @@ public class GestionArticleController {
         volumeColumn.setCellValueFactory(cellData -> cellData.getValue().volumeProperty().asObject());
         // Initialisation des comboBox
         continentSearch.setItems(FXCollections.observableArrayList(serviceArticle.getContinentFiltre()));
-        continentSearch.getItems().add(0,new Continent(0, "Choisir un continent"));
+        continentSearch.getItems().add(0, new Continent(0, "Choisir un continent"));
         continentSearch.valueProperty().addListener(observable -> filterContinent());
 
         paysSearch.setItems(FXCollections.observableArrayList(serviceArticle.getPaysFiltre()));
@@ -113,9 +121,9 @@ public class GestionArticleController {
         typeSearch.valueProperty().addListener(observable -> filterArticle());
 
         //toutContenance.setItems(FXCollections.observableArrayList(serviceArticle.getContenanceFiltre()));
-        toutContenance.getItems().add(0,"Volume");
-        toutContenance.getItems().add(1,"33");
-        toutContenance.getItems().add(2,"75");
+        toutContenance.getItems().add(0, "Volume");
+        toutContenance.getItems().add(1, "33");
+        toutContenance.getItems().add(2, "75");
         toutContenance.getSelectionModel().select(0);
         toutContenance.valueProperty().addListener(observable -> filterArticle());
 
@@ -130,7 +138,7 @@ public class GestionArticleController {
         slider.highValueProperty().addListener(observable -> filterArticle());
         slider.lowValueProperty().addListener(observable -> filterArticle());
 
-        articleTable.getSelectionModel().selectedItemProperty().addListener((observale,oldValue,newValue) -> afficherDetails(newValue));
+        articleTable.getSelectionModel().selectedItemProperty().addListener((observale, oldValue, newValue) -> afficherDetails(newValue));
         detailDisable(false);
     }
 
@@ -138,14 +146,33 @@ public class GestionArticleController {
         this.menuApp = menuApp;
         filterArticle();
     }
+
     private void detailDisable(boolean bool) {
         detailShow.setVisible(bool);
 
     }
+/*
+    public void supprimerArticle() {
 
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
 
+        alert.getButtonTypes().clear();
+
+        alert.getButtonTypes().add(ButtonType.YES);
+        alert.getButtonTypes().add(ButtonType.NO);
+
+        alert.setContentText("Voulez vous supprimer l'article ?");
+
+        Optional<ButtonType> result = alert.showAndWait();
+
+        if (result.isPresent() && result.get() == ButtonType.YES) {
+
+            article.supprimer(articleSelected);
+        }
+    }
+*/
     private void afficherDetails(Article article) {
-if (article != null) {
+        if (article != null) {
             ID_label.setText(String.valueOf(article.getId()));
             libelle.setText(article.getLibelle());
             Volume_label.setText(String.valueOf(article.getVolume()));
@@ -157,29 +184,31 @@ if (article != null) {
             couleur.setText(article.getCouleur().getLibelle());
             type.setText(String.valueOf(article.getTypeBiere()));
             continent.setText(article.getMarque().getPays().getContinent().getLibelle());
-    detailDisable(true);
-}
-/*
-        public void supprimerArticle() {
+            detailDisable(true);
+        }
 
-            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-
-            alert.getButtonTypes().clear();
-
-            alert.getButtonTypes().add(ButtonType.YES);
-            alert.getButtonTypes().add(ButtonType.NO);
-            alert.setTitle("Fichier modifié");
-
-            alert.setContentText("Voulez vous supprimer l'article ?");
-
-            Optional<ButtonType> result = alert.showAndWait();
-
-            if (result.isPresent() && result.get() == ButtonType.YES) {
-
-                article.supprimer(articleSelected);
-            }
-        }*/
     }
+/*
+    @FXML
+    public void ajouter() {
+        Article newArticle = new Article();
+        article.ajouter(newArticle);
+        articleTable.getSelectionModel().select(null);
+
+    }
+*/
+    @FXML
+    public void imprimer() {
+        PrinterJob printerJob = PrinterJob.createPrinterJob();
+        printerJob.showPrintDialog(menuApp.getPrimaryStage());
+        boolean success = printerJob.printPage(articleTable);
+        if (success) {
+            printerJob.endJob();
+        }
+
+
+    }
+
     private void filterContinent() {
         if (continentSearch.getSelectionModel().getSelectedItem() != null
                 && (continentSearch.getSelectionModel().getSelectedItem()).getId() != 0) {
@@ -189,7 +218,7 @@ if (article != null) {
         } else {
             paysSearch.setItems(FXCollections.observableArrayList(serviceArticle.getPaysFiltre()));
         }
-        paysSearch.getItems().add(0,new Pays("", "Choisir un pays", new Continent()));
+        paysSearch.getItems().add(0, new Pays("", "Choisir un pays", new Continent()));
         paysSearch.getSelectionModel().select(0);
         filterArticle();
 

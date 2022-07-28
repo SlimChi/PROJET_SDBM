@@ -139,4 +139,9 @@ public class Article
 		this.prixAchat = prixAchat;
 	}
 
+	public void ajouter(Article newArticle) {
+		allArticle.add(newArticle);
+	}
+
+
 }
