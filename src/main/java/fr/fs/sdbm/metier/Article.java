@@ -6,10 +6,11 @@ import javafx.beans.property.SimpleFloatProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
+import javafx.collections.ObservableList;
 
 public class Article
 {
-
+	private ObservableList<Article> allArticle;
 	private Integer id;
 	private String libelle;
 	private Integer volume;
@@ -35,6 +36,9 @@ public class Article
 		marque = new Marque();
 	}
 
+	public void supprimer(Article articleSupprimer) {
+		allArticle.remove(articleSupprimer);
+	}
 	public IntegerProperty idProperty()
 	{
 		return new SimpleIntegerProperty(id);

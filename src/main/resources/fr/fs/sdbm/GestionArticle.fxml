@@ -1,13 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.Slider?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
+<?import org.controlsfx.control.RangeSlider?>
 
 <AnchorPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="613.0" prefWidth="1025.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fr.fs.sdbm.GestionArticleController">
 	<children>
@@ -20,22 +24,21 @@
 						<Font name="System Bold" size="14.0" />
 					</font>
 				</Label>
-				<ComboBox fx:id="fabricantSearch" layoutX="14.0" layoutY="71.0" prefHeight="26.0" prefWidth="92.0" promptText="Fabricant" />
-				<ComboBox fx:id="continentSearch" layoutX="142.0" layoutY="72.0" prefHeight="26.0" prefWidth="98.0" promptText="Continent" />
-				<ComboBox fx:id="paysSearch" layoutX="276.0" layoutY="71.0" prefHeight="26.0" prefWidth="98.0" promptText="Pays" />
-				<Slider layoutX="76.0" layoutY="161.0" />
-				<Slider layoutX="76.0" layoutY="191.0" />
-				<Label layoutX="12.0" layoutY="159.0" text="Titrage max" />
-				<Label layoutX="13.0" layoutY="189.0" text="Titrage min" />
-				<ComboBox fx:id="couleurSearch" layoutX="14.0" layoutY="111.0" prefHeight="26.0" prefWidth="92.0" promptText="Couleur" />
-				<ComboBox fx:id="typeSearch" layoutX="142.0" layoutY="112.0" prefHeight="26.0" prefWidth="98.0" promptText="Type" />
-				<ComboBox layoutX="305.0" layoutY="31.0" prefWidth="150.0" promptText="Tout Contenance" />
-            <ComboBox fx:id="marqueSearch" layoutX="291.0" layoutY="111.0" prefHeight="26.0" prefWidth="98.0" promptText="marque" />
+				<ComboBox fx:id="fabricantSearch" layoutX="14.0" layoutY="71.0" prefHeight="26.0" prefWidth="92.0" promptText="Fabricant" style="-fx-background-color: c7defa;" />
+				<ComboBox fx:id="continentSearch" layoutX="142.0" layoutY="72.0" prefHeight="26.0" prefWidth="98.0" promptText="Continent" style="-fx-background-color: c7defa;" />
+				<ComboBox fx:id="paysSearch" layoutX="276.0" layoutY="71.0" prefHeight="26.0" prefWidth="98.0" promptText="Pays" style="-fx-background-color: c7defa;" />
+				<ComboBox fx:id="couleurSearch" layoutX="14.0" layoutY="111.0" prefHeight="26.0" prefWidth="92.0" promptText="Couleur" style="-fx-background-color: c7defa;" />
+				<ComboBox fx:id="typeSearch" layoutX="142.0" layoutY="112.0" prefHeight="26.0" prefWidth="98.0" promptText="Type" style="-fx-background-color: c7defa;" />
+				<ComboBox fx:id="toutContenance" layoutX="305.0" layoutY="31.0" prefWidth="150.0" promptText="ToutContenance" style="-fx-background-color: c7defa;" />
+            <ComboBox fx:id="marqueSearch" layoutX="276.0" layoutY="111.0" prefHeight="26.0" prefWidth="98.0" promptText="marque" style="-fx-background-color: c7defa;" />
+            <Label layoutX="20.0" layoutY="167.0" text="Min" />
+            <Label layoutX="344.0" layoutY="167.0" prefWidth="32.0" text="Max" />
+            <RangeSlider fx:id="slider" blendMode="SRC_ATOP" layoutX="41.0" layoutY="169.0" max="26.0" prefHeight="14.0" prefWidth="300.0" showTickLabels="true" showTickMarks="true" style="-fx-background-color: #e3f3ff;" />
 			</children>
 		</AnchorPane>
-		<AnchorPane layoutX="15.0" layoutY="234.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="378.0" prefWidth="471.0" AnchorPane.bottomAnchor="1.0" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="539.0">
+		<AnchorPane layoutX="15.0" layoutY="234.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="360.0" prefWidth="471.0" AnchorPane.bottomAnchor="49.0" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="539.0">
 			<children>
-				<TableView fx:id="articleTable" layoutX="15.0" layoutY="14.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="349.0" prefWidth="399.0" AnchorPane.bottomAnchor="15.0" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="12.0" AnchorPane.topAnchor="14.0">
+				<TableView fx:id="articleTable" layoutX="15.0" layoutY="17.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="332.0" prefWidth="444.0" AnchorPane.bottomAnchor="11.0" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="12.0" AnchorPane.topAnchor="17.0">
 					<columns>
 						<TableColumn fx:id="idColumn" maxWidth="80.0" minWidth="80.0" resizable="false" text="ID" />
 						<TableColumn fx:id="nomColumn" maxWidth="400.0" minWidth="152.0" prefWidth="235.99998474121094" text="Libellé" />
@@ -48,25 +51,61 @@
 				</TableView>
 			</children>
 		</AnchorPane>
-		<AnchorPane layoutX="500.0" layoutY="30.0" prefHeight="553.0" prefWidth="455.0">
+		<AnchorPane fx:id="detailShow" layoutX="500.0" layoutY="30.0" prefHeight="553.0" prefWidth="508.0">
 			<children>
-				<Label layoutX="214.0" layoutY="14.0" text="Detail :">
+				<Label layoutX="214.0" layoutY="14.0" text="Détails">
 					<font>
-						<Font size="18.0" />
+						<Font name="System Bold Italic" size="25.0" />
 					</font>
 				</Label>
-				<Label layoutX="86.0" layoutY="109.0" text="Libellé :" />
-				<Label layoutX="86.0" layoutY="150.0" text="Prix d'achat :" />
-				<Label layoutX="86.0" layoutY="187.0" text="Volume :" />
-				<Label layoutX="86.0" layoutY="232.0" text="Titrage :" />
-				<Label layoutX="86.0" layoutY="268.0" text="Marque :" />
-				<Label layoutX="86.0" layoutY="313.0" text="Fabricant :" />
-				<Label layoutX="86.0" layoutY="355.0" text="Pays :" />
-				<Label layoutX="86.0" layoutY="397.0" text="Continant :" />
-				<Label layoutX="86.0" layoutY="439.0" text="Couleur :" />
-				<Label layoutX="86.0" layoutY="480.0" text="Type :" />
-				<Label layoutX="86.0" layoutY="69.0" text=" ID :" />
+            <GridPane layoutX="14.0" layoutY="68.0" prefHeight="452.0" prefWidth="482.0">
+              <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+              </columnConstraints>
+              <rowConstraints>
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+              </rowConstraints>
+               <children>
+                  <Label prefHeight="32.0" prefWidth="225.0" text="ID :" />
+                  <Label prefHeight="32.0" prefWidth="225.0" text="Prix d'achat :" GridPane.rowIndex="2" />
+                  <Label prefHeight="32.0" prefWidth="225.0" text="Label :" GridPane.rowIndex="1" />
+                  <Label prefHeight="32.0" prefWidth="225.0" text="Volume :" GridPane.rowIndex="3" />
+                  <Label prefHeight="32.0" prefWidth="225.0" text="Titrage :" GridPane.rowIndex="4" />
+                  <Label prefHeight="32.0" prefWidth="225.0" text="Marque :" GridPane.rowIndex="5" />
+                  <Label prefHeight="32.0" prefWidth="225.0" text="Fabricant :" GridPane.rowIndex="6" />
+                  <Label prefHeight="32.0" prefWidth="225.0" text="pays" GridPane.rowIndex="7" />
+                  <Label prefHeight="32.0" prefWidth="225.0" text="Continent :" GridPane.rowIndex="8" />
+                  <Label prefHeight="32.0" prefWidth="225.0" text="Couleur :" GridPane.rowIndex="9" />
+                  <Label prefHeight="32.0" prefWidth="225.0" text="Type :" GridPane.rowIndex="10" />
+                  <Label fx:id="ID_label" GridPane.columnIndex="1" />
+                  <Label fx:id="libelle" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                  <Label fx:id="prixAchat" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                  <Label fx:id="Volume_label" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                  <Label fx:id="titrage" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                  <Label fx:id="marque" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                  <Label fx:id="fabricant" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+                  <Label fx:id="pays" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+                  <Label fx:id="continent" GridPane.columnIndex="1" GridPane.rowIndex="8" />
+                  <Label fx:id="couleur" GridPane.columnIndex="1" GridPane.rowIndex="9" />
+                  <Label fx:id="type" GridPane.columnIndex="1" GridPane.rowIndex="10" />
+               </children>
+            </GridPane>
 			</children>
 		</AnchorPane>
+      <Button layoutX="617.0" layoutY="575.0" mnemonicParsing="false" text="Ajouter" />
+      <Button layoutX="912.0" layoutY="574.0" mnemonicParsing="false" text="Supprimer" />
+      <Button layoutX="764.0" layoutY="575.0" mnemonicParsing="false" text="Modifier" />
+      <Button layoutX="213.0" layoutY="574.0" mnemonicParsing="false" text="Imprimer" />
 	</children>
 </AnchorPane>

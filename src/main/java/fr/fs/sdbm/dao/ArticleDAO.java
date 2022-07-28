@@ -18,24 +18,26 @@ public class ArticleDAO extends DAO<Article, ArticleSearch> {
     public ArrayList<Article> getLike(ArticleSearch articleSearch) {
         ResultSet rs;
         ArrayList<Article> liste = new ArrayList<>();
-        String procedureStockee = "{call SP_Vue_Article(?,?,?)}";
+        String procedureStockee = "{call SP_Vue_Article(?,?,?,?,?,?,?,?,?,?)}";
         try (CallableStatement cStmt = this.connexion.prepareCall(procedureStockee)) {
+
+
+
             cStmt.setString(1, articleSearch.getLibelle());
             cStmt.setInt(2, articleSearch.getVolume());
-            if (articleSearch.getMarque().getId() == null)
-                cStmt.setNull(3, Types.INTEGER);
-            else
-                cStmt.setInt(3, articleSearch.getMarque().getId());
+            cStmt.setInt(3, articleSearch.getMarque().getId());
 
             //cStmt.setFloat(3, 0);
             //cStmt.setFloat(4, 9);
 
+            cStmt.setInt(4, articleSearch.getCouleur().getId());
+            cStmt.setInt(5, articleSearch.getTypeBiere().getId());
+            cStmt.setInt(6, articleSearch.getFabricant().getId());
+            cStmt.setString(7, articleSearch.getPays().getId());
+            cStmt.setInt(8, articleSearch.getContinent().getId());
+            cStmt.setDouble(9, articleSearch.getTitrageMin());
+            cStmt.setDouble(10,articleSearch.getTitrageMax());
 
-            //cStmt.setInt(6, articleSearch.getFabricant().getId());
-            //cStmt.setString(7, articleSearch.getPays().getId());
-            //cStmt.setInt(8, articleSearch.getContinent().getId());
-            //cStmt.setInt(9, articleSearch.getCouleur().getId());
-            //cStmt.setInt(10, articleSearch.getTypeBiere().getId());
             //cStmt.setNull(5, Types.INTEGER);
             //cStmt.setNull(6, Types.INTEGER);
 
@@ -49,11 +51,18 @@ public class ArticleDAO extends DAO<Article, ArticleSearch> {
                 newArticle.setLibelle(rs.getString(4));
                 newArticle.setVolume(rs.getInt(6));
                 newArticle.setTitrage(rs.getFloat(7));
+                newArticle.setPrixAchat(rs.getFloat(5));
+                newArticle.setCouleur(new Couleur(rs.getInt(8),rs.getString(9)));
+                newArticle.setTypeBiere(new TypeBiere(rs.getInt(1),rs.getString(2)));
 
-                /*newArticle.setPays(new Pays(rs.getString(3), rs.getString(4), new Continent(rs.getInt(5), rs.getString(6))));
-                newArticle.setFabricant(new Fabricant());
-                newArticle.getFabricant().setId(rs.getInt(7));
-                newArticle.getFabricant().setLibelle(rs.getString(8));*/
+                Marque newMarque = new Marque();
+                newMarque.setPays(new Pays(rs.getString(10), rs.getString(11), new Continent(rs.getInt(12), rs.getString(13))));
+                newMarque.setId(rs.getInt(15));
+                newMarque.setLibelle(rs.getString(14));
+                newMarque.setFabricant(new Fabricant(rs.getInt(16),rs.getString(17)));
+
+                //  System.out.println(rs.getString(11),);
+                newArticle.setMarque(newMarque);
                 liste.add(newArticle);
             }
             rs.close();

@@ -30,6 +30,7 @@ public class ContinentDAO extends DAO <Continent,Continent>
 	    Continent continentLu = new Continent(0,"");
 	    while (rs.next())
 	    {
+			System.out.println(rs.getString(3));
 		if (continentLu.getId() != rs.getInt(1))
 		{
 		    continentLu = new Continent(rs.getInt(1), rs.getString(2));

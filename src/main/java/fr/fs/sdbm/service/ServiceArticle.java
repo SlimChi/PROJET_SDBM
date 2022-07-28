@@ -23,20 +23,23 @@ public class ServiceArticle {
         marqueFiltre =  DaoFactory.getMarqueDAO().getAll();
 
         Fabricant fabricant = new Fabricant();
-        fabricant.setLibelle("Choisir un fabricant");
+        fabricant.setLibelle("Fabricant");
         fabricantFiltre.add(0, fabricant);
 
         Marque marque = new Marque();
-        marque.setLibelle("Choisir une marque");
+        marque.setLibelle("Marque");
         marqueFiltre.add(0, marque);
 
         Couleur couleur = new Couleur();
-        couleur.setLibelle("Choisir une couleur");
+        couleur.setLibelle("Couleur");
         couleurFiltre.add(0, couleur);
 
         TypeBiere typeBiere = new TypeBiere();
-        typeBiere.setLibelle("Choisir une biére");
+        typeBiere.setLibelle("Biére");
         typeBiereFiltre.add(0, typeBiere);
+
+
+
     }
 
 
@@ -61,6 +64,7 @@ public class ServiceArticle {
     {
         return DaoFactory.getArticleDAO().getLike(articleSearch);
     }
+
 
 
 }

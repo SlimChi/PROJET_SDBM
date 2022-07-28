@@ -8,7 +8,7 @@ import javafx.beans.property.StringProperty;
 public class Marque
 {
 
-    private Integer id;
+    private int id;
     private String libelle;
     private Pays pays;
     private Fabricant fabricant;
@@ -17,7 +17,7 @@ public class Marque
 
     }
 
-    public Marque(Integer id, String libelle) {
+    public Marque(int id, String libelle) {
         this.id = id;
         this.libelle = libelle;
     }

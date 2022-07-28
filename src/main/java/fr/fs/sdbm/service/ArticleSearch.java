@@ -6,6 +6,25 @@ public class ArticleSearch {
     private int id;
     private String libelle;
 
+    public double getTitrageMin() {
+        return titrageMin;
+    }
+
+    public void setTitrageMin(double titrageMin) {
+        this.titrageMin = titrageMin;
+    }
+
+    public double getTitrageMax() {
+        return titrageMax;
+    }
+
+    public void setTitrageMax(double titrageMax) {
+        this.titrageMax = titrageMax;
+    }
+
+    private double titrageMin;
+    private double titrageMax;
+
     private float prixAchat;
     private int volume;
 
@@ -27,9 +46,6 @@ public class ArticleSearch {
         return titrage;
     }
 
-    public void setTitrageMin(float titrage) {
-        this.titrage = titrage;
-    }
 
     private float titrage;
     private Marque marque;
@@ -41,6 +57,9 @@ public class ArticleSearch {
         marque = new Marque();
         couleur = new Couleur();
         typeBiere = new TypeBiere();
+        fabricant = new Fabricant();
+        pays = new Pays();
+        continent = new Continent();
      }
 
     public int getId() {

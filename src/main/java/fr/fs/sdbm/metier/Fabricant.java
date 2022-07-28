@@ -26,4 +26,13 @@ public class Fabricant
 	return libelle;
     }
 
+    public Fabricant(int id, String libelle){
+        this.id = id;
+        this.libelle = libelle;
+    }
+
+    public Fabricant(){
+
+    }
+
 }
