@@ -13,6 +13,7 @@ import java.io.IOException;
 
 public class MenuApp extends Application {
     private Stage primaryStage;
+    private Stage windowAjouter;
 
     public static void main(String[] args) {
         launch(args);
@@ -26,7 +27,7 @@ public class MenuApp extends Application {
     @Override
     public void start(Stage primaryStage) {
         this.primaryStage = primaryStage;
-        this.primaryStage.setTitle("Gestion des Marques");
+        this.primaryStage.setTitle("Gestion des Articles");
         showArticle();
     }
 
@@ -48,18 +49,21 @@ public class MenuApp extends Application {
             e.printStackTrace();
         }
     }
-        private void showModifArticle() {
+        public void ajouterArticle() {
 
             try {
-                FXMLLoader loader = new FXMLLoader();
-                loader.setLocation(MenuApp.class.getResource("Modifier_ajouter_articles.fxml"));
-                AnchorPane menuLayout = (AnchorPane) loader.load();
+                windowAjouter=new Stage();
+                FXMLLoader myFXMLloader = new FXMLLoader();
+                myFXMLloader.setLocation(MenuApp.class.getResource("Modifer_ajouter_articles.fxml"));
+                AnchorPane ajouterAncorpan=myFXMLloader.load();
+                AjouterController ajouterController=myFXMLloader.getController();
+                ajouterController.setMainApp(this);
 
-                Scene scene = new Scene(menuLayout);
-                primaryStage.setScene(scene);
-
-                GestionArticleController controller = loader.getController();
-                controller.setMenuApp(this);
+                windowAjouter.initModality(Modality.WINDOW_MODAL);
+                windowAjouter.initOwner(primaryStage);
+                windowAjouter.setTitle("Ajouter un article");
+                windowAjouter.setScene(new Scene(ajouterAncorpan));
+                windowAjouter.showAndWait();
 
 
             } catch (IOException e) {

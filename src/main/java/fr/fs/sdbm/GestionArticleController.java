@@ -34,6 +34,8 @@ public class GestionArticleController {
     @FXML
     private TextField libelleSearch;
     @FXML
+    private Button reset;
+    @FXML
     private ComboBox<Marque> marqueSearch;
     @FXML
     private ComboBox<Fabricant> fabricantSearch;
@@ -86,8 +88,6 @@ public class GestionArticleController {
     private Article articleSelected;
     private Article article;
 
-    @FXML
-    private Button ajouter;
     private Button imprimer;
     private Button supprimer;
 
@@ -102,7 +102,7 @@ public class GestionArticleController {
         volumeColumn.setCellValueFactory(cellData -> cellData.getValue().volumeProperty().asObject());
         // Initialisation des comboBox
         continentSearch.setItems(FXCollections.observableArrayList(serviceArticle.getContinentFiltre()));
-        continentSearch.getItems().add(0, new Continent(0, "Choisir un continent"));
+        continentSearch.getItems().add(0, new Continent(0, "Continent"));
         continentSearch.valueProperty().addListener(observable -> filterContinent());
 
         paysSearch.setItems(FXCollections.observableArrayList(serviceArticle.getPaysFiltre()));
@@ -151,6 +151,18 @@ public class GestionArticleController {
         detailShow.setVisible(bool);
 
     }
+
+    public void reset(){
+        marqueSearch.getSelectionModel().clearAndSelect(0);
+        fabricantSearch.getSelectionModel().clearAndSelect(0);
+        continentSearch.getSelectionModel().clearAndSelect(0);
+        paysSearch.getSelectionModel().clearAndSelect(0);
+        couleurSearch.getSelectionModel().clearAndSelect(0);
+        typeSearch.getSelectionModel().clearAndSelect(0);
+        toutContenance.getSelectionModel().clearAndSelect(0);
+        detailDisable(false);
+
+    }
 /*
     public void supprimerArticle() {
 
@@ -188,15 +200,6 @@ public class GestionArticleController {
         }
 
     }
-/*
-    @FXML
-    public void ajouter() {
-        Article newArticle = new Article();
-        article.ajouter(newArticle);
-        articleTable.getSelectionModel().select(null);
-
-    }
-*/
     @FXML
     public void imprimer() {
         PrinterJob printerJob = PrinterJob.createPrinterJob();
@@ -218,7 +221,7 @@ public class GestionArticleController {
         } else {
             paysSearch.setItems(FXCollections.observableArrayList(serviceArticle.getPaysFiltre()));
         }
-        paysSearch.getItems().add(0, new Pays("", "Choisir un pays", new Continent()));
+        paysSearch.getItems().add(0, new Pays("", "Pays", new Continent()));
         paysSearch.getSelectionModel().select(0);
         filterArticle();
 
@@ -250,4 +253,9 @@ public class GestionArticleController {
 
         articleTable.setItems(FXCollections.observableArrayList(serviceArticle.getFilteredArticles(articleSearch)));
     }
+@FXML
+    public void ajouter(){
+        menuApp.ajouterArticle();
+
+}
 }

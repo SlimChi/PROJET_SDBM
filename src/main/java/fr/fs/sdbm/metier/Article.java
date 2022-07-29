@@ -36,9 +36,7 @@ public class Article
 		marque = new Marque();
 	}
 
-	public void supprimer(Article articleSupprimer) {
-		allArticle.remove(articleSupprimer);
-	}
+
 	public IntegerProperty idProperty()
 	{
 		return new SimpleIntegerProperty(id);
@@ -138,10 +136,5 @@ public class Article
 	{
 		this.prixAchat = prixAchat;
 	}
-
-	public void ajouter(Article newArticle) {
-		allArticle.add(newArticle);
-	}
-
 
 }
