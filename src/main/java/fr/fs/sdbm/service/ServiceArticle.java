@@ -22,7 +22,6 @@ public class ServiceArticle {
         couleurFiltre = DaoFactory.getCouleurDAO().getAll();
         typeBiereFiltre = DaoFactory.getTypeBiereDAO().getAll();
 
-
     }
 
 

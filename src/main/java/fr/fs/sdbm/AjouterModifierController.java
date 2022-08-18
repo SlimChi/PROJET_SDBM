@@ -52,7 +52,6 @@ public class AjouterModifierController {
     private void initialize() {
         serviceArticle = new ServiceArticle();
 
-
         marqueLabel.setItems(FXCollections.observableArrayList(serviceArticle.getMarqueFiltre()));
         couleurLabel.setItems(FXCollections.observableArrayList(serviceArticle.getCouleurFiltre()));
         typeLabel.setItems(FXCollections.observableArrayList(serviceArticle.getTypeBiereFiltre()));
@@ -61,7 +60,7 @@ public class AjouterModifierController {
 
 
     @FXML
-    public void abandonner() {
+    public void annuler() {
         confirmed = false;
         dialogStage.close();
 
@@ -76,7 +75,7 @@ public class AjouterModifierController {
 
     public void modifierArticle(Article article) {
         this.article = article;
-        if (article.getLibelle() != null) {
+        if (article.getId() != null) {
 
             nomLabel.setText(article.getLibelle());
             titrageLabel.setText(String.valueOf(article.getTitrage().floatValue()));
@@ -108,11 +107,16 @@ public class AjouterModifierController {
         this.article.setTypeBiere(typeLabel.getSelectionModel().getSelectedItem());
         this.article.setStock(Integer.parseInt(stockLabel.getText()));
 
-
-        serviceArticle.insertArticle(this.article);
+        if (article != null) {
+            serviceArticle.insertArticle(this.article);
+            serviceArticle.deleteArticle(this.article);
+        } else {
+            serviceArticle.updateArticle(this.article);
+        }
         confirmed = true;
         dialogStage.close();
     }
+
 
     private void Close() {
         menuApp.getDialogStage().close();

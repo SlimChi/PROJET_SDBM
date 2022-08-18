@@ -257,6 +257,7 @@ public class GestionArticleController {
     public void modifier() {
         articleSelected = articleTable.getSelectionModel().getSelectedItem();
         menuApp.ajouterModifierArticle(articleSelected, "Modifier article");
+        afficherDetails(articleSelected);
         serviceArticle.updateArticle(articleSelected);
 
     }
@@ -266,7 +267,7 @@ public class GestionArticleController {
         if (article == null) {
            Article article = new Article() ;
             menuApp.ajouterModifierArticle(article,"Ajouter article");
-
+            serviceArticle.insertArticle(this.article);
         }
     }
 
@@ -287,6 +288,7 @@ public class GestionArticleController {
             if (result.isPresent() && result.get() == ButtonType.YES) {
 
                 serviceArticle.deleteArticle(articleSelected);
+                reset();
             }
         }
     }

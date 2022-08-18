@@ -82,7 +82,7 @@
                </children>
             </GridPane>
             <Button fx:id="confirmer" layoutX="253.0" layoutY="550.0" mnemonicParsing="false" onAction="#validerArticle" prefHeight="25.0" prefWidth="72.0" text="Confirmer" />
-            <Button fx:id="abandonner" layoutX="412.0" layoutY="549.0" mnemonicParsing="false" onAction="#abandonner" text="Abandonner" />
+            <Button fx:id="annuler" layoutX="412.0" layoutY="549.0" mnemonicParsing="false" onAction="#annuler" text="annuler" />
             <Pane layoutX="361.0" layoutY="6.0" prefHeight="62.0" prefWidth="119.0">
                <children>
                   <ImageView fitHeight="53.0" fitWidth="36.0" layoutX="14.0" layoutY="-8.0">
