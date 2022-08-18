@@ -6,22 +6,6 @@ public class ArticleSearch {
     private int id;
     private String libelle;
 
-    public double getTitrageMin() {
-        return titrageMin;
-    }
-
-    public void setTitrageMin(double titrageMin) {
-        this.titrageMin = titrageMin;
-    }
-
-    public double getTitrageMax() {
-        return titrageMax;
-    }
-
-    public void setTitrageMax(double titrageMax) {
-        this.titrageMax = titrageMax;
-    }
-
     private double titrageMin;
     private double titrageMax;
 
@@ -32,22 +16,10 @@ public class ArticleSearch {
 
     private Continent continent;
 
-    public Fabricant getFabricant() {
-        return fabricant;
-    }
-
-    public void setFabricant(Fabricant fabricant) {
-        this.fabricant = fabricant;
-    }
 
     private Fabricant fabricant;
 
-    public float getTitrage() {
-        return titrage;
-    }
-
-
-    private float titrage;
+     private float titrage;
     private Marque marque;
     private Couleur couleur;
     private TypeBiere typeBiere;
@@ -126,6 +98,14 @@ public class ArticleSearch {
         this.pays = pays;
     }
 
+    public Fabricant getFabricant() {
+        return fabricant;
+    }
+
+    public void setFabricant(Fabricant fabricant) {
+        this.fabricant = fabricant;
+    }
+
     public Continent getContinent() {
         return continent;
     }
@@ -133,5 +113,26 @@ public class ArticleSearch {
     public void setContinent(Continent continent) {
         this.continent = continent;
     }
+    public double getTitrageMin() {
+        return titrageMin;
+    }
 
+    public void setTitrageMin(double titrageMin) {
+        this.titrageMin = titrageMin;
+    }
+
+    public double getTitrageMax() {
+        return titrageMax;
+    }
+
+    public void setTitrageMax(double titrageMax) {
+        this.titrageMax = titrageMax;
+    }
+    public float getTitrage() {
+        return titrage;
+    }
+
+    public void setTitrage(float titrage) {
+        this.titrage = titrage;
+    }
 }

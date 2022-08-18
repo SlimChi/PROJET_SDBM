@@ -1,7 +1,6 @@
 package fr.fs.sdbm.dao;
 
 import fr.fs.sdbm.metier.*;
-import fr.fs.sdbm.service.MarqueSearch;
 
 import java.sql.*;
 import java.util.ArrayList;

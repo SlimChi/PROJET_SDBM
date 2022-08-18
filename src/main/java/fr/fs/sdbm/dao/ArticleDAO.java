@@ -2,12 +2,8 @@ package fr.fs.sdbm.dao;
 
 import fr.fs.sdbm.metier.*;
 import fr.fs.sdbm.service.ArticleSearch;
-import fr.fs.sdbm.service.MarqueSearch;
 
-import java.sql.CallableStatement;
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.Types;
+import java.sql.*;
 import java.util.ArrayList;
 
 public class ArticleDAO extends DAO<Article, ArticleSearch> {
@@ -61,7 +57,7 @@ public class ArticleDAO extends DAO<Article, ArticleSearch> {
                 newMarque.setLibelle(rs.getString(14));
                 newMarque.setFabricant(new Fabricant(rs.getInt(16),rs.getString(17)));
 
-                //  System.out.println(rs.getString(11),);
+                // System.out.println(rs.getString(11),);
                 newArticle.setMarque(newMarque);
                 liste.add(newArticle);
             }
@@ -89,20 +85,64 @@ public class ArticleDAO extends DAO<Article, ArticleSearch> {
     }
 
     @Override
-    public boolean insert(Article objet) {
-        // TODO Auto-generated method stub
-        return false;
+    public boolean insert(Article article) {
+        String Statement = "INSERT INTO ARTICLE (NOM_ARTICLE,PRIX_ACHAT,VOLUME,TITRAGE,ID_MARQUE,ID_COULEUR,ID_TYPE,STOCk) VALUES (?,?,?,?,?,?,?,?)";
+        try (PreparedStatement pStmt = this.connexion.prepareStatement(Statement))
+        {
+            pStmt.setString(1,article.getLibelle());
+            pStmt.setFloat(2,article.getPrixAchat());
+            pStmt.setInt(3,article.getVolume());
+            pStmt.setFloat(4,article.getTitrage());
+            pStmt.setInt(5,article.getMarque().getId());
+            pStmt.setInt(6,article.getCouleur().getId());
+            pStmt.setInt(7,article.getTypeBiere().getId());
+            pStmt.setInt(8,article.getStock());
+            pStmt.execute();
+            return true;
+        }
+        catch (Exception e){
+            e.printStackTrace();
+            return false;
+        }
+
     }
 
     @Override
-    public boolean update(Article object) {
-        // TODO Auto-generated method stub
-        return false;
+    public boolean update(Article article) {
+        String Statement ="UPDATE ARTICLE SET NOM_ARTICLE = ?, PRIX_ACHAT = ?, VOLUME=?,TITRAGE=?,ID_MARQUE =?, ID_COULEUR =?,ID_TYPE=?,STOCK =? WHERE VALUE =?";
+        try (PreparedStatement pStmt = this.connexion.prepareStatement(Statement))
+        {
+            pStmt.setString(1,article.getLibelle());
+            pStmt.setFloat(2,article.getPrixAchat());
+            pStmt.setInt(3,article.getVolume());
+            pStmt.setFloat(4,article.getTitrage());
+            pStmt.setInt(5,article.getMarque().getId());
+            pStmt.setInt(6,article.getCouleur().getId());
+            pStmt.setInt(7,article.getTypeBiere().getId());
+            pStmt.setInt(8,article.getStock());
+            pStmt.execute();
+            return true;
+        }
+        catch (Exception e){
+            e.printStackTrace();
+            return false;
+        }
     }
 
     @Override
-    public boolean delete(Article object) {
-        // TODO Auto-generated method stub
-        return false;
+    public boolean delete(Article article) {
+        String Statement = "DELETE FROM ARTICLE WHERE ID_ARTICLE =?";
+        try (PreparedStatement pStmt = this.connexion.prepareStatement(Statement))
+        {
+            pStmt.setInt(1,article.getId());
+            pStmt.execute();
+            return true;
+        }
+        catch (Exception e){
+            e.printStackTrace();
+
+            return false;
+        }
+
     }
 }

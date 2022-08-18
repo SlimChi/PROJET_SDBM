@@ -114,11 +114,11 @@
                   <Label fx:id="type" GridPane.columnIndex="1" GridPane.rowIndex="10" />
                </children>
             </GridPane>
-            <Button layoutX="176.0" layoutY="541.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="72.0" text="Modifier" />
-            <Button fx:id="supprimer" layoutX="329.0" layoutY="541.0" mnemonicParsing="false" text="Supprimer" />
+            <Button fx:id="modifer" layoutX="176.0" layoutY="541.0" mnemonicParsing="false" onAction="#modifier" prefHeight="25.0" prefWidth="72.0" text="Modifier" />
+            <Button fx:id="supprimer" layoutX="329.0" layoutY="541.0" mnemonicParsing="false" onAction="#delete" text="Supprimer" />
 			</children>
 		</AnchorPane>
-      <Button layoutX="332.0" layoutY="571.0" mnemonicParsing="false" onAction="#ajouter" prefHeight="25.0" prefWidth="72.0" text="Ajouter" />
+      <Button fx:id="ajouter" layoutX="332.0" layoutY="571.0" mnemonicParsing="false" onAction="#ajouter" prefHeight="25.0" prefWidth="72.0" text="Ajouter" />
       <Button fx:id="imprimer" layoutX="80.0" layoutY="571.0" mnemonicParsing="false" onAction="#imprimer" prefHeight="25.0" prefWidth="72.0" text="Imprimer" />
 	</children>
 </AnchorPane>

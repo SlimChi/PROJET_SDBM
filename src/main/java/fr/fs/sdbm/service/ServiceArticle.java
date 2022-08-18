@@ -13,58 +13,57 @@ public class ServiceArticle {
     private ArrayList<Marque> marqueFiltre;
     private ArrayList<Continent> continentFiltre;
     private ArrayList<Fabricant> fabricantFiltre;
-    public ServiceArticle()
-    {
+
+    public ServiceArticle() {
         paysFiltre = DaoFactory.getPaysDAO().getAll();
         continentFiltre = DaoFactory.getContinentDAO().getAll();
         fabricantFiltre = DaoFactory.getFabricantDAO().getAll();
-        couleurFiltre =  DaoFactory.getCouleurDAO().getAll();
-        typeBiereFiltre =  DaoFactory.getTypeBiereDAO().getAll();
-        marqueFiltre =  DaoFactory.getMarqueDAO().getAll();
-
-        Fabricant fabricant = new Fabricant();
-        fabricant.setLibelle("Fabricant");
-        fabricantFiltre.add(0, fabricant);
-
-        Marque marque = new Marque();
-        marque.setLibelle("Marque");
-        marqueFiltre.add(0, marque);
-
-        Couleur couleur = new Couleur();
-        couleur.setLibelle("Couleur");
-        couleurFiltre.add(0, couleur);
-
-        TypeBiere typeBiere = new TypeBiere();
-        typeBiere.setLibelle("Biére");
-        typeBiereFiltre.add(0, typeBiere);
-
+        marqueFiltre = DaoFactory.getMarqueDAO().getAll();
+        couleurFiltre = DaoFactory.getCouleurDAO().getAll();
+        typeBiereFiltre = DaoFactory.getTypeBiereDAO().getAll();
 
 
     }
 
 
-    public ArrayList<Pays> getPaysFiltre()
-    {
+    public ArrayList<Pays> getPaysFiltre() {
         return paysFiltre;
     }
-    public ArrayList<Continent> getContinentFiltre()
-    {
+
+    public ArrayList<Continent> getContinentFiltre() {
         return continentFiltre;
     }
-    public ArrayList<Fabricant> getFabricantFiltre()
-    {
+
+    public ArrayList<Fabricant> getFabricantFiltre() {
         return fabricantFiltre;
     }
 
-    public ArrayList<Couleur> getCouleurFiltre(){return couleurFiltre;}
+    public ArrayList<Couleur> getCouleurFiltre() {
+        return couleurFiltre;
+    }
 
-    public ArrayList<TypeBiere> getTypeBiereFiltre(){return typeBiereFiltre;}
-    public ArrayList<Marque> getMarqueFiltre(){return marqueFiltre;}
-    public ArrayList<Article> getFilteredArticles(ArticleSearch articleSearch)
-    {
+    public ArrayList<TypeBiere> getTypeBiereFiltre() {
+        return typeBiereFiltre;
+    }
+
+    public ArrayList<Marque> getMarqueFiltre() {
+        return marqueFiltre;
+    }
+
+    public ArrayList<Article> getFilteredArticles(ArticleSearch articleSearch) {
         return DaoFactory.getArticleDAO().getLike(articleSearch);
     }
 
+    public boolean updateArticle(Article article) {
+        return DaoFactory.getArticleDAO().update(article);
+    }
 
+    public boolean insertArticle(Article article) {
+        return DaoFactory.getArticleDAO().insert(article);
+    }
+
+    public boolean deleteArticle(Article article) {
+        return DaoFactory.getArticleDAO().delete(article);
+    }
 
 }

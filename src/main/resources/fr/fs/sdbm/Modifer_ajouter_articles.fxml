@@ -13,11 +13,11 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="ajouterAncorpan" prefHeight="620.0" prefWidth="587.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fr.fs.sdbm.AjouterController">
+<AnchorPane fx:id="ajouterAncorpan" prefHeight="620.0" prefWidth="587.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fr.fs.sdbm.AjouterModifierController">
    <children>
       <AnchorPane fx:id="detailShow" layoutX="40.0" layoutY="20.0" prefHeight="580.0" prefWidth="508.0" style="-fx-background-color: white;">
          <children>
-            <Label layoutX="165.0" layoutY="14.0" text="Ajouter articles">
+            <Label fx:id="titre" layoutX="165.0" layoutY="14.0" text="Ajouter articles">
                <font>
                   <Font name="System Bold Italic" size="25.0" />
                </font>
@@ -81,8 +81,8 @@
                   <TextField fx:id="stockLabel" GridPane.columnIndex="1" GridPane.rowIndex="7" />
                </children>
             </GridPane>
-            <Button layoutX="253.0" layoutY="550.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="72.0" text="Confirmer" />
-            <Button layoutX="412.0" layoutY="549.0" mnemonicParsing="false" text="Abandonner" />
+            <Button fx:id="confirmer" layoutX="253.0" layoutY="550.0" mnemonicParsing="false" onAction="#validerArticle" prefHeight="25.0" prefWidth="72.0" text="Confirmer" />
+            <Button fx:id="abandonner" layoutX="412.0" layoutY="549.0" mnemonicParsing="false" onAction="#abandonner" text="Abandonner" />
             <Pane layoutX="361.0" layoutY="6.0" prefHeight="62.0" prefWidth="119.0">
                <children>
                   <ImageView fitHeight="53.0" fitWidth="36.0" layoutX="14.0" layoutY="-8.0">

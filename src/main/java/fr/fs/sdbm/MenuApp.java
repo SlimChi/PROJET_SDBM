@@ -13,7 +13,12 @@ import java.io.IOException;
 
 public class MenuApp extends Application {
     private Stage primaryStage;
-    private Stage windowAjouter;
+
+    public Stage getDialogStage() {
+        return dialogStage;
+    }
+
+    private Stage dialogStage;
 
     public static void main(String[] args) {
         launch(args);
@@ -23,6 +28,7 @@ public class MenuApp extends Application {
         return primaryStage;
     }
 
+    private Article articleSelected;
 
     @Override
     public void start(Stage primaryStage) {
@@ -49,26 +55,32 @@ public class MenuApp extends Application {
             e.printStackTrace();
         }
     }
-        public void ajouterArticle() {
 
-            try {
-                windowAjouter=new Stage();
-                FXMLLoader myFXMLloader = new FXMLLoader();
-                myFXMLloader.setLocation(MenuApp.class.getResource("Modifer_ajouter_articles.fxml"));
-                AnchorPane ajouterAncorpan=myFXMLloader.load();
-                AjouterController ajouterController=myFXMLloader.getController();
-                ajouterController.setMainApp(this);
+    public void ajouterModifierArticle(Article articleSelected, String titre) {
 
-                windowAjouter.initModality(Modality.WINDOW_MODAL);
-                windowAjouter.initOwner(primaryStage);
-                windowAjouter.setTitle("Ajouter un article");
-                windowAjouter.setScene(new Scene(ajouterAncorpan));
-                windowAjouter.showAndWait();
+        try {
+
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(MenuApp.class.getResource("Modifer_ajouter_articles.fxml"));
+            AnchorPane ajouterModifierOverview = loader.load();
+
+            dialogStage = new Stage();
+            dialogStage.setTitle(titre);
+
+            dialogStage.initModality(Modality.WINDOW_MODAL);
+            dialogStage.initOwner(primaryStage);
+            Scene scene = new Scene(ajouterModifierOverview);
+            AjouterModifierController ajouterModifierController = loader.getController();
+            ajouterModifierController.setDialogStage(dialogStage);
+            ajouterModifierController.modifierArticle(articleSelected);
+            ajouterModifierController.setTitle(titre);
+            dialogStage.setScene(scene);
+            dialogStage.showAndWait();
 
 
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+        } catch (IOException e) {
+            e.printStackTrace();
         }
+    }
 
 }

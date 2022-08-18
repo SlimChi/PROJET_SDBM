@@ -4,6 +4,10 @@ public class Fabricant
 {
     private int id;
     private String libelle;
+
+    public Fabricant(){
+
+    }
     public Integer getId()
     {
         return id;
@@ -31,8 +35,6 @@ public class Fabricant
         this.libelle = libelle;
     }
 
-    public Fabricant(){
 
-    }
 
 }

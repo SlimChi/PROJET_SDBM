@@ -3,7 +3,6 @@ package fr.fs.sdbm;
 import fr.fs.sdbm.metier.*;
 import fr.fs.sdbm.service.ArticleSearch;
 import fr.fs.sdbm.service.ServiceArticle;
-import fr.fs.sdbm.service.ServiceMarque;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.print.PrinterJob;
@@ -56,7 +55,7 @@ public class GestionArticleController {
     @FXML
     private MenuApp menuApp;
 
-    private ServiceMarque serviceMarque;
+
     private ServiceArticle serviceArticle;
 
 
@@ -87,14 +86,23 @@ public class GestionArticleController {
 
     private Article articleSelected;
     private Article article;
-
+    @FXML
     private Button imprimer;
+    @FXML
     private Button supprimer;
+    @FXML
+    private Button modifer;
+    @FXML
+    private Button ajouter;
+
+    public GestionArticleController() {
+    }
+
 
     // Initialisation de la vue
     @FXML
     private void initialize() {
-        //serviceMarque = new ServiceMarque();
+
         serviceArticle = new ServiceArticle();
         idColumn.setCellValueFactory(cellData -> cellData.getValue().idProperty().asObject());
         nomColumn.setCellValueFactory(cellData -> cellData.getValue().libelleProperty());
@@ -105,19 +113,25 @@ public class GestionArticleController {
         continentSearch.getItems().add(0, new Continent(0, "Continent"));
         continentSearch.valueProperty().addListener(observable -> filterContinent());
 
+        marqueSearch.setItems(FXCollections.observableArrayList(serviceArticle.getMarqueFiltre()));
+        marqueSearch.getItems().add(0, new Marque(0, "Marque"));
+        marqueSearch.valueProperty().addListener(observable -> filterArticle());
+
         paysSearch.setItems(FXCollections.observableArrayList(serviceArticle.getPaysFiltre()));
+      //  paysSearch.getItems().add(0, new Pays(0, "Pays"));
         paysSearch.valueProperty().addListener(observable -> filterArticle());
 
         fabricantSearch.setItems(FXCollections.observableArrayList(serviceArticle.getFabricantFiltre()));
+        fabricantSearch.getItems().add(0, new Fabricant(0, "Fabricant"));
         fabricantSearch.valueProperty().addListener(observable -> filterArticle());
 
-        marqueSearch.setItems(FXCollections.observableArrayList(serviceArticle.getMarqueFiltre()));
-        marqueSearch.valueProperty().addListener(observable -> filterArticle());
-
         couleurSearch.setItems(FXCollections.observableArrayList(serviceArticle.getCouleurFiltre()));
+        couleurSearch.getItems().add(0, new Couleur(0, "Couleur"));
         couleurSearch.valueProperty().addListener(observable -> filterArticle());
 
+
         typeSearch.setItems(FXCollections.observableArrayList(serviceArticle.getTypeBiereFiltre()));
+        typeSearch.getItems().add(0, new TypeBiere(0, "Bière"));
         typeSearch.valueProperty().addListener(observable -> filterArticle());
 
         //toutContenance.setItems(FXCollections.observableArrayList(serviceArticle.getContenanceFiltre()));
@@ -142,75 +156,6 @@ public class GestionArticleController {
         detailDisable(false);
     }
 
-    public void setMenuApp(MenuApp menuApp) {
-        this.menuApp = menuApp;
-        filterArticle();
-    }
-
-    private void detailDisable(boolean bool) {
-        detailShow.setVisible(bool);
-
-    }
-
-    public void reset(){
-        marqueSearch.getSelectionModel().clearAndSelect(0);
-        fabricantSearch.getSelectionModel().clearAndSelect(0);
-        continentSearch.getSelectionModel().clearAndSelect(0);
-        paysSearch.getSelectionModel().clearAndSelect(0);
-        couleurSearch.getSelectionModel().clearAndSelect(0);
-        typeSearch.getSelectionModel().clearAndSelect(0);
-        toutContenance.getSelectionModel().clearAndSelect(0);
-        detailDisable(false);
-
-    }
-/*
-    public void supprimerArticle() {
-
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-
-        alert.getButtonTypes().clear();
-
-        alert.getButtonTypes().add(ButtonType.YES);
-        alert.getButtonTypes().add(ButtonType.NO);
-
-        alert.setContentText("Voulez vous supprimer l'article ?");
-
-        Optional<ButtonType> result = alert.showAndWait();
-
-        if (result.isPresent() && result.get() == ButtonType.YES) {
-
-            article.supprimer(articleSelected);
-        }
-    }
-*/
-    private void afficherDetails(Article article) {
-        if (article != null) {
-            ID_label.setText(String.valueOf(article.getId()));
-            libelle.setText(article.getLibelle());
-            Volume_label.setText(String.valueOf(article.getVolume()));
-            prixAchat.setText(String.valueOf(article.getPrixAchat()));
-            pays.setText(article.getMarque().getPays().getLibelle());
-            titrage.setText(String.valueOf(article.getTitrage()));
-            marque.setText(article.getMarque().getLibelle());
-            fabricant.setText(article.getMarque().getFabricant().getLibelle());
-            couleur.setText(article.getCouleur().getLibelle());
-            type.setText(String.valueOf(article.getTypeBiere()));
-            continent.setText(article.getMarque().getPays().getContinent().getLibelle());
-            detailDisable(true);
-        }
-
-    }
-    @FXML
-    public void imprimer() {
-        PrinterJob printerJob = PrinterJob.createPrinterJob();
-        printerJob.showPrintDialog(menuApp.getPrimaryStage());
-        boolean success = printerJob.printPage(articleTable);
-        if (success) {
-            printerJob.endJob();
-        }
-
-
-    }
 
     private void filterContinent() {
         if (continentSearch.getSelectionModel().getSelectedItem() != null
@@ -221,12 +166,15 @@ public class GestionArticleController {
         } else {
             paysSearch.setItems(FXCollections.observableArrayList(serviceArticle.getPaysFiltre()));
         }
-        paysSearch.getItems().add(0, new Pays("", "Pays", new Continent()));
+        paysSearch.getItems().add(0,new Pays("", "Choisir un pays", new Continent()));
         paysSearch.getSelectionModel().select(0);
         filterArticle();
-
     }
 
+    public void setMenuApp(MenuApp menuApp) {
+        this.menuApp = menuApp;
+        filterArticle();
+    }
     @FXML
     private void filterArticle() {
         ArticleSearch articleSearch = new ArticleSearch();
@@ -253,9 +201,93 @@ public class GestionArticleController {
 
         articleTable.setItems(FXCollections.observableArrayList(serviceArticle.getFilteredArticles(articleSearch)));
     }
-@FXML
-    public void ajouter(){
-        menuApp.ajouterArticle();
 
-}
+
+    private void detailDisable(boolean bool) {
+        detailShow.setVisible(bool);
+
+    }
+
+    public void reset() {
+        marqueSearch.getSelectionModel().clearAndSelect(0);
+        fabricantSearch.getSelectionModel().clearAndSelect(0);
+        continentSearch.getSelectionModel().clearAndSelect(0);
+        paysSearch.getSelectionModel().clearAndSelect(0);
+        couleurSearch.getSelectionModel().clearAndSelect(0);
+        typeSearch.getSelectionModel().clearAndSelect(0);
+        toutContenance.getSelectionModel().clearAndSelect(0);
+        detailDisable(false);
+
+    }
+
+
+    private void afficherDetails(Article article) {
+        if (article != null) {
+            ID_label.setText(String.valueOf(article.getId()));
+            libelle.setText(article.getLibelle());
+            Volume_label.setText(String.valueOf(article.getVolume()));
+            prixAchat.setText(String.valueOf(article.getPrixAchat()));
+            pays.setText(article.getMarque().getPays().getLibelle());
+            titrage.setText(String.valueOf(article.getTitrage()));
+            marque.setText(article.getMarque().getLibelle());
+            fabricant.setText(article.getMarque().getFabricant().getLibelle());
+            couleur.setText(article.getCouleur().getLibelle());
+            type.setText(String.valueOf(article.getTypeBiere()));
+            continent.setText(article.getMarque().getPays().getContinent().getLibelle());
+            detailDisable(true);
+        }
+
+    }
+
+
+    @FXML
+    public void imprimer() {
+        PrinterJob printerJob = PrinterJob.createPrinterJob();
+        printerJob.showPrintDialog(menuApp.getPrimaryStage());
+        boolean success = printerJob.printPage(articleTable);
+        if (success) {
+            printerJob.endJob();
+        }
+
+
+    }
+
+
+    @FXML
+    public void modifier() {
+        articleSelected = articleTable.getSelectionModel().getSelectedItem();
+        menuApp.ajouterModifierArticle(articleSelected, "Modifier article");
+        serviceArticle.updateArticle(articleSelected);
+
+    }
+
+    @FXML
+    public void ajouter() {
+        if (article == null) {
+           Article article = new Article() ;
+            menuApp.ajouterModifierArticle(article,"Ajouter article");
+
+        }
+    }
+
+    @FXML
+    public void delete() {
+        if (articleSelected != null) {
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+
+            alert.getButtonTypes().clear();
+
+            alert.getButtonTypes().add(ButtonType.YES);
+            alert.getButtonTypes().add(ButtonType.NO);
+
+            alert.setContentText("Voulez vous supprimer l'article ?");
+
+            Optional<ButtonType> result = alert.showAndWait();
+
+            if (result.isPresent() && result.get() == ButtonType.YES) {
+
+                serviceArticle.deleteArticle(articleSelected);
+            }
+        }
+    }
 }

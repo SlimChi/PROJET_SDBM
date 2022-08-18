@@ -10,7 +10,13 @@ import javafx.collections.ObservableList;
 
 public class Article
 {
+
+
 	private ObservableList<Article> allArticle;
+
+	public void setAllArticle(ObservableList<Article> allArticle) {
+		this.allArticle = allArticle;
+	}
 	private Integer id;
 	private String libelle;
 	private Integer volume;
@@ -19,6 +25,7 @@ public class Article
 	private Marque marque;
 	private Couleur couleur;
 	private TypeBiere typeBiere;
+	private Integer stock;
 
 	public Article()
 	{
@@ -137,4 +144,17 @@ public class Article
 		this.prixAchat = prixAchat;
 	}
 
+	public IntegerProperty stockproperty() {return new SimpleIntegerProperty(stock);}
+	public Integer getStock() {
+		return stock;
+	}
+
+	public void setStock(Integer stock) {
+		this.stock = stock;
+	}
+
+
+	public void setAllArticle(String libelle, Float prixAchat , Integer volume, Float titrage , Marque marque, Couleur couleur, TypeBiere typeBiere, int stock) {
+
+	}
 }
