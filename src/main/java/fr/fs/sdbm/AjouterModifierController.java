@@ -118,11 +118,7 @@ public class AjouterModifierController {
     }
 
 
-    private void Close() {
-        menuApp.getDialogStage().close();
-    }
-
-    public void setTitle(String titre) {
+      public void setTitle(String titre) {
         this.titre.setText(titre);
     }
 }

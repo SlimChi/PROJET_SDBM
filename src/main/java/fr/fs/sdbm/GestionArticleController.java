@@ -118,7 +118,7 @@ public class GestionArticleController {
         marqueSearch.valueProperty().addListener(observable -> filterArticle());
 
         paysSearch.setItems(FXCollections.observableArrayList(serviceArticle.getPaysFiltre()));
-      //  paysSearch.getItems().add(0, new Pays(0, "Pays"));
+        //  paysSearch.getItems().add(0, new Pays(0, "Pays"));
         paysSearch.valueProperty().addListener(observable -> filterArticle());
 
         fabricantSearch.setItems(FXCollections.observableArrayList(serviceArticle.getFabricantFiltre()));
@@ -166,7 +166,7 @@ public class GestionArticleController {
         } else {
             paysSearch.setItems(FXCollections.observableArrayList(serviceArticle.getPaysFiltre()));
         }
-        paysSearch.getItems().add(0,new Pays("", "Choisir un pays", new Continent()));
+        paysSearch.getItems().add(0, new Pays("", "Choisir un pays", new Continent()));
         paysSearch.getSelectionModel().select(0);
         filterArticle();
     }
@@ -175,6 +175,7 @@ public class GestionArticleController {
         this.menuApp = menuApp;
         filterArticle();
     }
+
     @FXML
     private void filterArticle() {
         ArticleSearch articleSearch = new ArticleSearch();
@@ -216,7 +217,7 @@ public class GestionArticleController {
         couleurSearch.getSelectionModel().clearAndSelect(0);
         typeSearch.getSelectionModel().clearAndSelect(0);
         toutContenance.getSelectionModel().clearAndSelect(0);
-        detailDisable(false);
+        //detailDisable(false);
 
     }
 
@@ -248,8 +249,6 @@ public class GestionArticleController {
         if (success) {
             printerJob.endJob();
         }
-
-
     }
 
 
@@ -257,22 +256,27 @@ public class GestionArticleController {
     public void modifier() {
         articleSelected = articleTable.getSelectionModel().getSelectedItem();
         menuApp.ajouterModifierArticle(articleSelected, "Modifier article");
-        afficherDetails(articleSelected);
         serviceArticle.updateArticle(articleSelected);
+
+        initialize();
+        reset();
 
     }
 
     @FXML
     public void ajouter() {
         if (article == null) {
-           Article article = new Article() ;
-            menuApp.ajouterModifierArticle(article,"Ajouter article");
+            Article article = new Article();
+            menuApp.ajouterModifierArticle(article, "Ajouter article");
             serviceArticle.insertArticle(this.article);
         }
+        initialize();
+        reset();
     }
 
     @FXML
     public void delete() {
+        articleSelected = articleTable.getSelectionModel().getSelectedItem();
         if (articleSelected != null) {
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
 
@@ -285,11 +289,15 @@ public class GestionArticleController {
 
             Optional<ButtonType> result = alert.showAndWait();
 
-            if (result.isPresent() && result.get() == ButtonType.YES) {
+            if (alert.getResult() == ButtonType.YES) {
 
                 serviceArticle.deleteArticle(articleSelected);
-                reset();
+
             }
+
         }
+        initialize();
+        reset();
     }
+
 }

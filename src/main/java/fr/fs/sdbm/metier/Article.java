@@ -154,7 +154,4 @@ public class Article
 	}
 
 
-	public void setAllArticle(String libelle, Float prixAchat , Integer volume, Float titrage , Marque marque, Couleur couleur, TypeBiere typeBiere, int stock) {
-
-	}
 }
