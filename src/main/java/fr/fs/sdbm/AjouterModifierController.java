@@ -7,6 +7,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 
@@ -42,6 +43,9 @@ public class AjouterModifierController {
     private Article article;
     @FXML
     private Label titre;
+    @FXML
+    private Label nomAlert;
+    private boolean nomCorrect;
 
     public void setMainApp(MenuApp menuApp) {
         this.menuApp = menuApp;
@@ -76,7 +80,7 @@ public class AjouterModifierController {
     public void modifierArticle(Article article) {
         this.article = article;
         if (article.getId() != null) {
-
+            getNom();
             nomLabel.setText(article.getLibelle());
             titrageLabel.setText(String.valueOf(article.getTitrage().floatValue()));
             typeLabel.getSelectionModel().select(article.getTypeBiere());
@@ -85,6 +89,7 @@ public class AjouterModifierController {
             prixLabel.setText(article.getPrixAchat().toString());
             couleurLabel.getSelectionModel().select(article.getCouleur());
             stockLabel.setText(String.valueOf(article.getStock()));
+            isConfirmed();
         }
     }
 
@@ -107,11 +112,11 @@ public class AjouterModifierController {
         this.article.setTypeBiere(typeLabel.getSelectionModel().getSelectedItem());
         this.article.setStock(Integer.parseInt(stockLabel.getText()));
 
-        if (article != null) {
-            serviceArticle.insertArticle(this.article);
-            serviceArticle.deleteArticle(this.article);
-        } else {
+        if (dialogStage.getTitle().equals("Modifier article")) {
             serviceArticle.updateArticle(this.article);
+
+        } if (dialogStage.getTitle().equals("Ajouter article")) {
+            serviceArticle.insertArticle(this.article);
         }
         confirmed = true;
         dialogStage.close();
@@ -120,5 +125,17 @@ public class AjouterModifierController {
 
       public void setTitle(String titre) {
         this.titre.setText(titre);
+    }
+    private String getNom() {
+        String nom = null;
+        if(nomLabel.getText() != ""){
+            nom = nomLabel.getText();
+            nomCorrect = true;
+        } else {
+            nomAlert.setText("!");
+            nomAlert.setTextFill(Color.RED);
+            nomCorrect = false;
+        }
+        return nom;
     }
 }

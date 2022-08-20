@@ -152,7 +152,7 @@ public class GestionArticleController {
         slider.highValueProperty().addListener(observable -> filterArticle());
         slider.lowValueProperty().addListener(observable -> filterArticle());
 
-        articleTable.getSelectionModel().selectedItemProperty().addListener((observale, oldValue, newValue) -> afficherDetails(newValue));
+        articleTable.getSelectionModel().selectedItemProperty().addListener((observale, oldValue, newValue) -> read(newValue));
         detailDisable(false);
     }
 
@@ -210,6 +210,7 @@ public class GestionArticleController {
     }
 
     public void reset() {
+        libelleSearch.setText("");
         marqueSearch.getSelectionModel().clearAndSelect(0);
         fabricantSearch.getSelectionModel().clearAndSelect(0);
         continentSearch.getSelectionModel().clearAndSelect(0);
@@ -217,12 +218,12 @@ public class GestionArticleController {
         couleurSearch.getSelectionModel().clearAndSelect(0);
         typeSearch.getSelectionModel().clearAndSelect(0);
         toutContenance.getSelectionModel().clearAndSelect(0);
-        //detailDisable(false);
+        detailDisable(false);
 
     }
 
 
-    private void afficherDetails(Article article) {
+    private void read(Article article) {
         if (article != null) {
             ID_label.setText(String.valueOf(article.getId()));
             libelle.setText(article.getLibelle());
@@ -240,38 +241,24 @@ public class GestionArticleController {
 
     }
 
-
     @FXML
-    public void imprimer() {
-        PrinterJob printerJob = PrinterJob.createPrinterJob();
-        printerJob.showPrintDialog(menuApp.getPrimaryStage());
-        boolean success = printerJob.printPage(articleTable);
-        if (success) {
-            printerJob.endJob();
-        }
-    }
-
-
-    @FXML
-    public void modifier() {
+    public void update() {
         articleSelected = articleTable.getSelectionModel().getSelectedItem();
         menuApp.ajouterModifierArticle(articleSelected, "Modifier article");
-        serviceArticle.updateArticle(articleSelected);
 
-        initialize();
-        reset();
+        filterArticle();
 
     }
 
     @FXML
-    public void ajouter() {
+    public void create() {
+
         if (article == null) {
             Article article = new Article();
             menuApp.ajouterModifierArticle(article, "Ajouter article");
-            serviceArticle.insertArticle(this.article);
+
         }
-        initialize();
-        reset();
+        filterArticle();
     }
 
     @FXML
@@ -296,8 +283,17 @@ public class GestionArticleController {
             }
 
         }
-        initialize();
-        reset();
+        filterArticle();
     }
 
+
+    @FXML
+    public void imprimer() {
+        PrinterJob printerJob = PrinterJob.createPrinterJob();
+        printerJob.showPrintDialog(menuApp.getPrimaryStage());
+        boolean success = printerJob.printPage(articleTable);
+        if (success) {
+            printerJob.endJob();
+        }
+    }
 }

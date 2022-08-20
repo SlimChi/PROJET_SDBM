@@ -72,13 +72,13 @@
                   <TextField fx:id="prixLabel" prefHeight="25.0" prefWidth="172.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                   <TextField fx:id="titrageLabel" GridPane.columnIndex="1" GridPane.rowIndex="3" />
                   <TextField fx:id="nomLabel" prefHeight="25.0" prefWidth="172.0" GridPane.columnIndex="1" />
-                  <TextField fx:id="volumLabel" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                   <Label prefHeight="32.0" prefWidth="225.0" text="Stock :" GridPane.rowIndex="7">
                      <font>
                         <Font name="System Bold" size="17.0" />
                      </font>
                   </Label>
                   <TextField fx:id="stockLabel" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+                  <TextField fx:id="volumLabel" prefHeight="25.0" prefWidth="172.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                </children>
             </GridPane>
             <Button fx:id="confirmer" layoutX="253.0" layoutY="550.0" mnemonicParsing="false" onAction="#validerArticle" prefHeight="25.0" prefWidth="72.0" text="Confirmer" />
@@ -94,5 +94,6 @@
             </Pane>
          </children>
       </AnchorPane>
+      <Label fx:id="nomAlert" layoutX="545.0" layoutY="106.0" text="Label" />
    </children>
 </AnchorPane>
