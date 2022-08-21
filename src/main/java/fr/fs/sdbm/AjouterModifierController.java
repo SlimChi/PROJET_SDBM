@@ -1,17 +1,20 @@
 package fr.fs.sdbm;
 
 import fr.fs.sdbm.metier.*;
+import fr.fs.sdbm.service.ArticleSearch;
 import fr.fs.sdbm.service.ServiceArticle;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 
 public class AjouterModifierController {
+
 
     @FXML
     private TextField nomLabel;
@@ -26,13 +29,14 @@ public class AjouterModifierController {
     private TextField titrageLabel;
 
     @FXML
-    private TextField volumLabel;
+    private ComboBox<String> volumLabel;
     @FXML
     private ComboBox<Marque> marqueLabel;
     @FXML
     private ComboBox<Couleur> couleurLabel;
     @FXML
     private ComboBox<TypeBiere> typeLabel;
+
     private ServiceArticle serviceArticle;
     private MenuApp menuApp;
 
@@ -60,8 +64,24 @@ public class AjouterModifierController {
         couleurLabel.setItems(FXCollections.observableArrayList(serviceArticle.getCouleurFiltre()));
         typeLabel.setItems(FXCollections.observableArrayList(serviceArticle.getTypeBiereFiltre()));
 
+        volumLabel.getItems().add(0, "Volume");
+        volumLabel.getItems().add(1, "33");
+        volumLabel.getItems().add(2, "75");
+        volumLabel.getSelectionModel().select(0);
+        volumLabel.valueProperty().addListener(observable -> filterArticle());
+
+
     }
 
+    @FXML
+    private void filterArticle() {
+        ArticleSearch articleSearch = new ArticleSearch();
+
+        if (volumLabel.getSelectionModel().getSelectedItem().equals("Volume"))
+            articleSearch.setVolume(0);
+        else articleSearch.setVolume(Integer.parseInt(volumLabel.getSelectionModel().getSelectedItem()));
+
+    }
 
     @FXML
     public void annuler() {
@@ -80,11 +100,10 @@ public class AjouterModifierController {
     public void modifierArticle(Article article) {
         this.article = article;
         if (article.getId() != null) {
-            getNom();
             nomLabel.setText(article.getLibelle());
             titrageLabel.setText(String.valueOf(article.getTitrage().floatValue()));
             typeLabel.getSelectionModel().select(article.getTypeBiere());
-            volumLabel.setText(article.getVolume().toString());
+            volumLabel.getSelectionModel().select(article.getVolume());
             marqueLabel.getSelectionModel().select(article.getMarque());
             prixLabel.setText(article.getPrixAchat().toString());
             couleurLabel.getSelectionModel().select(article.getCouleur());
@@ -105,8 +124,8 @@ public class AjouterModifierController {
 
         this.article.setLibelle(nomLabel.getText());
         this.article.setPrixAchat(Float.valueOf(prixLabel.getText()));
-        this.article.setVolume(Integer.valueOf(volumLabel.getText()));
         this.article.setTitrage(Float.valueOf(titrageLabel.getText()));
+        this.article.setVolume(Integer.valueOf(volumLabel.getSelectionModel().getSelectedItem()));
         this.article.setCouleur(couleurLabel.getSelectionModel().getSelectedItem());
         this.article.setMarque(marqueLabel.getSelectionModel().getSelectedItem());
         this.article.setTypeBiere(typeLabel.getSelectionModel().getSelectedItem());
@@ -115,7 +134,8 @@ public class AjouterModifierController {
         if (dialogStage.getTitle().equals("Modifier article")) {
             serviceArticle.updateArticle(this.article);
 
-        } if (dialogStage.getTitle().equals("Ajouter article")) {
+        }
+        if (dialogStage.getTitle().equals("Ajouter article")) {
             serviceArticle.insertArticle(this.article);
         }
         confirmed = true;
@@ -123,12 +143,13 @@ public class AjouterModifierController {
     }
 
 
-      public void setTitle(String titre) {
+    public void setTitle(String titre) {
         this.titre.setText(titre);
     }
+
     private String getNom() {
         String nom = null;
-        if(nomLabel.getText() != ""){
+        if (nomLabel.getText() != "") {
             nom = nomLabel.getText();
             nomCorrect = true;
         } else {

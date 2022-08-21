@@ -11,14 +11,10 @@ U
 %src/main/java/fr/fs/sdbm/dao/DAO.java,1\a\1ae6018646bc0b022a02b9ce035fee81a209129a
 \
 ,src/main/java/fr/fs/sdbm/dao/CouleurDAO.java,0\2\02c16c96818c76f776f7d03c0b08856e0ceba8a0
-\
-,src/main/java/fr/fs/sdbm/metier/Couleur.java,a\2\a2f248639be0cfb4b15f4be8e425e58a9751add6
 ^
 .src/main/java/fr/fs/sdbm/metier/Continent.java,8\f\8f88bb40ae384925a3d294fa49af9e3f19aa8401
 ^
 .src/main/java/fr/fs/sdbm/metier/TypeBiere.java,2\5\255f7b78db6923954f1b96049d603ffe383be996
-b
-2src/main/java/fr/fs/sdbm/service/MarqueSearch.java,3\2\32ee66444629ae875582494f05e31eb5d4aec0f3
 Y
 )src/main/java/fr/fs/sdbm/metier/Pays.java,5\f\5fb81e042f56538002c571053d071838ee744307
 ^
