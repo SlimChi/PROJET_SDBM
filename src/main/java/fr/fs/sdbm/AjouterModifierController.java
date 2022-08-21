@@ -147,16 +147,5 @@ public class AjouterModifierController {
         this.titre.setText(titre);
     }
 
-    private String getNom() {
-        String nom = null;
-        if (nomLabel.getText() != "") {
-            nom = nomLabel.getText();
-            nomCorrect = true;
-        } else {
-            nomAlert.setText("!");
-            nomAlert.setTextFill(Color.RED);
-            nomCorrect = false;
-        }
-        return nom;
-    }
+   
 }
